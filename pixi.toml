@@ -1,0 +1,13 @@
+[workspace]
+authors   = ["A-Noizes"]
+channels  = ["conda-forge", "bioconda"]
+name      = "vs_cpp_setup"
+platforms = ["linux-64"]
+version   = "0.1.0"
+
+
+[dependencies]
+boost  = "==1.82.0"
+gtest  = "==1.17.0"
+fmt    = "==12.1.0"
+

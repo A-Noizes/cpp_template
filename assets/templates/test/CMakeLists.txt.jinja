@@ -1,0 +1,13 @@
+#========================================================================== */
+#                                   TESTS                                   */
+#========================================================================== */
+include(GoogleTest)
+
+message("-- Add tests")
+add_executable({{command}} {{command}}.cpp)
+target_link_libraries({{command}} PRIVATE {{lib}} GTest::gtest_main)
+
+add_test(NAME {{test_name}} COMMAND {{command}})
+
+
+gtest_discover_tests({{test_name}})

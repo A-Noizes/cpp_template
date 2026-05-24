@@ -1,0 +1,26 @@
+CompileFlags:
+  CompilationDatabase: out/build/debug
+  Add: [-Wall, 
+        -Wextra, 
+        -Wpedantic, 
+        -Werror, 
+        -Wconversion, 
+        -Wsign-conversion, 
+        -Wshadow, 
+        -Wunused , 
+        -Wunused-variable, 
+        -Wunused-parameter,
+        -Wuninitialized,
+        -Wmaybe-uninitialized,
+        -Wnon-virtual-dtor   
+]
+
+Diagnostics:
+  ClangTidy:
+      Add:
+        - bugprone-*
+        - cppcoreguidelines-*
+        - modernize-*
+        - performance-*
+      Remove:
+        - modernize-use-trailing-return-type
