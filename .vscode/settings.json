@@ -1,0 +1,4 @@
+{
+    "clangd.enable": true,
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}/out/build/Clang 20.1.8 x86_64-pc-linux-gnu/compile_commands.json"
+}

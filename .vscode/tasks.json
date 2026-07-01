@@ -1,0 +1,36 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Add Subproject",
+      "type": "shell",
+      "command": "${config:python.defaultInterpreterPath}",
+      "args": [
+        "${workspaceFolder}/helper/subproject_helper.py",
+        "${input:subproject_name}",
+        "${input:generate_unit_tests}"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "subproject_name",
+      "type": "promptString",
+      "description": "Enter the name of the subproject to create or update."
+    },
+    {
+      "id": "generate_unit_tests",
+      "type": "pickString",
+      "description": "Should unit test files be generated?",
+      "options": [
+        "true",
+        "false"
+      ],
+      "default": "true"
+    }
+  ]
+}

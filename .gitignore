@@ -3,8 +3,6 @@
 !.pixi/config.toml
 pixi.lock
 
-#vscode
-.vscode
 
 #Build
 out

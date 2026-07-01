@@ -27,7 +27,7 @@ def _c(text: str, color_code: str) -> str:
 TEMPLATE_DIR      = pl.Path(__file__).resolve().parents[1] / "assets" / "templates" / "library"
 TEMPLATE_DIR_TEST = pl.Path(__file__).resolve().parents[1] / "assets" / "templates" / "test"
 LIB_DIR           = pl.Path(__file__).resolve().parents[1] / "src"
-TEST_DIR          = pl.Path(__file__).resolve().parents[1] / "test"
+TEST_DIR          = pl.Path(__file__).resolve().parents[1] / "tests"
 cmake       = pl.Path(__file__).resolve().parents[1] / "cmake"
 
 lib_name  = sys.argv[1]
@@ -66,8 +66,8 @@ for template in templates:
     content   = template.read_text() \
                         .replace("{{name}}", lib_name)
 
-    if ".h" in file_name:
-        target = lib_inc / f"{lib_name}.h"
+    if ".hpp" in file_name:
+        target = lib_inc / f"{lib_name}.hpp"
         target.write_text(content)
         _created_count += 1
         print(_c(f"[OK] Wrote header {target}", _Color.GREEN))
@@ -90,13 +90,14 @@ for template in templates:
 test_on = bool(sys.argv[2])
 if test_on:
     if not test_root.exists():
-        print(_c(f"[WARN] Creating test directory: {dir}", _Color.YELLOW))
-        test_root.mkdir()
+        print(_c(f"[WARN] Creating test directory: {test_root}", _Color.YELLOW))
+        test_root.mkdir(parents = True)
         cmake_test_template = TEMPLATE_DIR_TEST / "CMakeLists.txt.jinja"
         content             = cmake_test_template.read_text() \
                                                 .replace("{{lib}}", lib_name) \
-                                                .replace("{{command}}", f"test_{lib_name}") \
-                                                .replace("{{test_name}}", f"{lib_name}_gtest")   
+                                                .replace("{{file}}", f"{lib_name}_gtest") \
+                                                .replace("{{test_name}}", f"test_{lib_name}") \
+                                                .replace("{{command}}", f"{lib_name}_gtest")   
         target = test_root / cmake_test_template.stem
         target.write_text(content)
         
@@ -107,7 +108,7 @@ if test_on:
                                     .replace("{{lib}}", lib_name) \
                                     .replace("{{test_name}}", f"Test{lib_name}")
         
-        target = test_root / f"test_{lib_name}.cpp"
+        target = test_root / f"{lib_name}_gtest.cpp"
         target.write_text(content)
         
         
@@ -125,7 +126,7 @@ else:
         
 #Update subdirectories.cmake
 subdirectory_declaration = "add_subdirectory(${CMAKE_SOURCE_DIR}/src/" + lib_name + ")\n"
-subdirectory_test        = "add_subdirectory(${CMAKE_SOURCE_DIR}/test/" + lib_name + ")\n"
+subdirectory_test        = "add_subdirectory(${CMAKE_SOURCE_DIR}/tests/" + lib_name + ")\n"
 cmake_files_subdirectory = {"subdirectories.cmake" : subdirectory_declaration, "unit_tests.cmake" : subdirectory_test}
 for dir in cmake_files_subdirectory.keys():
     cmake_sub                = cmake / dir

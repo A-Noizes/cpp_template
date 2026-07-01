@@ -1,0 +1,27 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "by-gdb",
+            "request": "launch",
+            "name": "GDB-debug",
+            "program": "${workspaceFolder}/out/build/debug/${workspaceFolderBasename}",
+            "cwd": "${workspaceRoot}",
+            "stopAtEntry": true
+        },
+        {
+            "type": "by-gdb",
+            "request": "launch",
+            "name": "GDB-test",
+            "program": "${workspaceRoot}/out/build/debug/tests/${fileDirnameBasename}/${fileBasenameNoExtension}",
+            //"program":"/home/raphael/programing/uta_pipeline/cnv_merger/out/build/debug/tests/vcf_validator/vcf_validator_gtest",
+            "cwd": "${workspaceRoot}",
+            "stopAtEntry": true
+        }
+
+    ]
+}
